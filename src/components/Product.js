@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProduct } from "./reducers/product";
+import { fetchProduct } from "../reducers/product";
 
-
-
-const App = () => {
+const Product = () => {
   const product = useSelector(state => state.productReducer.product);
   const dispatch = useDispatch(); 
 
@@ -14,8 +12,9 @@ const App = () => {
 
   return (
     <>
+        {product?.name}
     </>
   );
 }
 
-export default App;
+export default Product;
