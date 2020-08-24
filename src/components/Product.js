@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../reducers/product";
 
 const Product = () => {
-  const product = useSelector(state => state.productReducer.product);
+  const { product, productRequestPending, productRequestError } = useSelector(state => state.productReducer);
   const dispatch = useDispatch(); 
 
   useEffect(() => {
-      setTimeout(() => dispatch(fetchProduct()), 2000)
-  }, [dispatch])
+    if (!product?.name && !productRequestPending && !productRequestError)
+      setTimeout(() => dispatch(fetchProduct()), 0)
+  }, [dispatch, product, productRequestPending, productRequestError])
 
   return (
     <>
-        {product?.name}
+      <div>{product?.name}</div>
     </>
   );
 }

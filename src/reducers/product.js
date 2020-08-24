@@ -1,9 +1,9 @@
 import {
-  SET_PENDING,
-  SET_ERROR,
+  SET_PRODUCT_PENDING,
+  SET_PRODUCT_ERROR,
   SET_PRODUCT,
 } from './actionTypes';
-import { API_URL } from '../config';
+import { PRODUCT_URL } from '../config';
 
 const initialState = {
   product: {},
@@ -14,12 +14,12 @@ const initialState = {
 
 export default function productReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_PENDING:
+    case SET_PRODUCT_PENDING:
       return {
         ...state,
-        productRequestPending: action.payload,
+        productRequestPending: true,
       };
-    case SET_ERROR:
+    case SET_PRODUCT_ERROR:
       return {
         ...state,
         product: {},
@@ -42,9 +42,9 @@ export default function productReducer(state = initialState, action) {
 
 export const fetchProduct = () => {
   return async dispatch => {
-    dispatch(setPending(true));
     try {
-      return await fetch(API_URL)
+      dispatch(setProductPending());
+      return await fetch(PRODUCT_URL)
         .then(res => res.json())
         .then(body => dispatch(fetchProductSuccess(body)))
         .catch(err => dispatch(fetchProductFailed(err.toString())))
@@ -54,10 +54,18 @@ export const fetchProduct = () => {
   };
 };
 
-export const setPending = (pending) => {
+export const setProductPending = () => {
   return {
-    type: SET_PENDING,
-    pending
+    type: SET_PRODUCT_PENDING,
+  };
+};
+
+const fetchProductFailed = (error) => {
+  return {
+    type: SET_PRODUCT_ERROR,
+    payload: {
+      error
+    }
   };
 };
 
@@ -66,15 +74,6 @@ const fetchProductSuccess = (data) => {
     type: SET_PRODUCT,
     payload: {
       data
-    }
-  };
-};
-
-const fetchProductFailed = (error) => {
-  return {
-    type: SET_ERROR,
-    payload: {
-      error
     }
   };
 };
