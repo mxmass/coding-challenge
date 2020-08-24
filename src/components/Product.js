@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../reducers/product";
 
 const Product = () => {
-  const { product, productRequestPending, productRequestError } = useSelector(state => state.productReducer);
+  const { product, 
+          productRequestPending, 
+          productRequestError 
+        } = useSelector(state => state.productReducer);
   const dispatch = useDispatch(); 
 
   useEffect(() => {

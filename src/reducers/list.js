@@ -5,8 +5,9 @@ import {
   SET_FILTERED_PENDING,
   SET_FILTERED_ERROR,
   SET_FILTERED,
-} from './actionTypes';
-import { LIST_URL, LIST_DEFAULT_URL } from '../config';
+  SET_APPLIED,
+} from "./actionTypes";
+import { LIST_URL, LIST_BASE_URL } from "../config";
 
 const initialState = {
   list: [],
@@ -17,6 +18,7 @@ const initialState = {
   filteredRequestPending: false,
   filteredRequestError: false,
   filteredRequestErrorDetails: null,
+  applied: [],
 };
 
 export default function listReducer(state = initialState, action) {
@@ -58,10 +60,16 @@ export default function listReducer(state = initialState, action) {
     case SET_FILTERED:
       return {
         ...state,
+        applied: action.payload.data,
         filtered: action.payload.data,
         filteredRequestError: false,
         filteredRequestErrorDetails: null,
         filteredRequestPending: false,
+      };
+    case SET_APPLIED:
+      return {
+        ...state,
+        applied: action.payload.data,
       };
     default:
       return state;
@@ -75,9 +83,9 @@ export const fetchList = () => {
       return await fetch(LIST_URL)
         .then(res => res.json())
         .then(body => dispatch(fetchListSuccess(body)))
-        .catch(err => dispatch(fetchListFailed(err.toString())))
+        .catch(err => dispatch(fetchListFailed(err.toString())));
     } catch (err) {
-      dispatch(fetchListFailed(err))
+      dispatch(fetchListFailed(err));
     }
   };
 };
@@ -88,34 +96,34 @@ export const setListPending = () => {
   };
 };
 
-const fetchListFailed = (error) => {
+const fetchListFailed = error => {
   return {
     type: SET_LIST_ERROR,
     payload: {
-      error
-    }
+      error,
+    },
   };
 };
 
-const fetchListSuccess = (data) => {
+const fetchListSuccess = data => {
   return {
     type: SET_LIST,
     payload: {
-      data
-    }
+      data,
+    },
   };
 };
 
-export const fetchFiltered = () => {
+export const fetchFiltered = brand => {
   return async dispatch => {
     try {
       dispatch(setFilteredPending());
-      return await fetch(LIST_DEFAULT_URL)
+      return await fetch(LIST_BASE_URL + brand)
         .then(res => res.json())
         .then(body => dispatch(fetchFilteredSuccess(body)))
-        .catch(err => dispatch(fetchFilteredFailed(err.toString())))
+        .catch(err => dispatch(fetchFilteredFailed(err.toString())));
     } catch (err) {
-      dispatch(fetchFilteredFailed(err))
+      dispatch(fetchFilteredFailed(err));
     }
   };
 };
@@ -126,20 +134,31 @@ export const setFilteredPending = () => {
   };
 };
 
-const fetchFilteredFailed = (error) => {
+const fetchFilteredFailed = error => {
   return {
     type: SET_FILTERED_ERROR,
     payload: {
-      error
-    }
+      error,
+    },
   };
 };
 
-const fetchFilteredSuccess = (data) => {
+const fetchFilteredSuccess = data => {
   return {
     type: SET_FILTERED,
     payload: {
-      data
-    }
+      data,
+    },
+  };
+};
+
+export const applyTextFilter = (arr, field, value) => {
+  return {
+    type: SET_APPLIED,
+    payload: {
+      data: value
+        ? arr.filter(i => i[field].toLowerCase().indexOf(value) !== -1)
+        : arr,
+    },
   };
 };
