@@ -59,7 +59,7 @@ const List = () => {
 
   useEffect(() => {
     setTimeout(() => dispatch(applyTextFilter(filtered, "name", name)), 0);
-  }, [name]);
+  }, [dispatch, filtered, name]);
 
   return (
     <>
