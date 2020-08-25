@@ -1,0 +1,15 @@
+export const SET_PRODUCT_PENDING = "SET_PRODUCT_PENDING";
+export const SET_PRODUCT_ERROR = "SET_PRODUCT_ERROR";
+export const SET_PRODUCT = "SET_PRODUCT";
+export const SET_LIST_PENDING = "SET_LIST_PENDING";
+export const SET_LIST_ERROR = "SET_LIST_ERROR";
+export const SET_LIST = "SET_LIST";
+export const SET_FILTERED_PENDING = "SET_FILTERED_PENDING";
+export const SET_FILTERED_ERROR = "SET_FILTERED_ERROR";
+export const SET_FILTERED = "SET_FILTERED";
+export const SET_BRANDS_PENDING = "SET_BRANDS_PENDING";
+export const SET_BRANDS_ERROR = "SET_BRANDS_ERROR";
+export const SET_BRANDS = "SET_BRANDS";
+export const SET_BRAND = "SET_BRAND";
+export const SET_NAME = "SET_NAME";
+export const SET_APPLIED = "SET_APPLIED";
