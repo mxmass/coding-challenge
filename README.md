@@ -7,6 +7,7 @@
 - [ ] refactor actions, add more reducers for more filter options
 - [ ] add tests for redux
 - [ ] add unit and smoke tests
+- [ ] save filters state in sessionStore and restore filters on reload
 
 ## The Beauty List
 
