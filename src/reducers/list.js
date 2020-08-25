@@ -115,10 +115,12 @@ const fetchListSuccess = data => {
 };
 
 export const fetchFiltered = brand => {
+  const api = LIST_BASE_URL + brand;
+  console.log(api);
   return async dispatch => {
     try {
       dispatch(setFilteredPending());
-      return await fetch(LIST_BASE_URL + brand)
+      return await fetch(api)
         .then(res => res.json())
         .then(body => dispatch(fetchFilteredSuccess(body)))
         .catch(err => dispatch(fetchFilteredFailed(err.toString())));

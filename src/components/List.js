@@ -5,6 +5,24 @@ import { fetchBrands } from "../reducers/filters";
 import BrandsFilter from "./BrandsFilter";
 import NameFilter from "./NameFilter";
 import ProductsList from "./ProductsList";
+import styled from "styled-components";
+
+const Grid = styled.div`
+  display: grid;
+  grid-gap: 5vw;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1vh;
+  grid-auto-flow: rows;
+`;
+
+const Filters = styled.form`
+  input,
+  select {
+    font-size: 1.1em;
+    padding: 4px;
+    margin: 3px;
+  }
+`;
 
 const List = () => {
   const {
@@ -63,11 +81,17 @@ const List = () => {
 
   return (
     <>
-      <form name="filtersForm">
-        <BrandsFilter />
-        <NameFilter />
-      </form>
-      <ProductsList />
+      <section>
+        <Filters name="filtersForm">
+          <Grid>
+            <BrandsFilter />
+            <NameFilter />
+          </Grid>
+        </Filters>
+      </section>
+      <section>
+        <ProductsList />
+      </section>
     </>
   );
 };

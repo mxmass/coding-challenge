@@ -1,16 +1,14 @@
-import React from 'react';
-import { Route, Router } from "react-router-dom";
-import { createBrowserHistory } from 'history';
-import styled from 'styled-components';
+import React from "react";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import styled from "styled-components";
 
 import { productsRoutes } from "./routes";
-import GlobalStyle from './theme/globalStyle';
+import GlobalStyle from "./theme/globalStyle";
 
 const AppWrapper = styled.main`
   margin: 0 auto;
-`
+`;
 
-const history = createBrowserHistory();
 const productRouter = productsRoutes.map((route, index) => (
   <Route
     path={route.path}
@@ -26,10 +24,12 @@ const App = () => {
     <>
       <GlobalStyle />
       <AppWrapper>
-        <Router history={history}>{productRouter}</Router>
+        <Router>
+          <Switch>{productRouter}</Switch>
+        </Router>
       </AppWrapper>
     </>
   );
-}
+};
 
 export default App;

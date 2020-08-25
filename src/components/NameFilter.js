@@ -20,7 +20,7 @@ const NameFilter = () => {
       type="text"
       name="nameFilter"
       id="nameFilter"
-      placeholder="search"
+      placeholder="just start typing to filter the list"
       onChange={handleChange}
     />
   );
