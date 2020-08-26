@@ -130,6 +130,15 @@ export const fetchFiltered = brand => {
   };
 };
 
+export const getFiltered = (arr, field, value) => {
+  return {
+    type: SET_FILTERED,
+    payload: {
+      data: value ? arr.filter(i => i[field] === value) : [],
+    },
+  };
+};
+
 export const setFilteredPending = () => {
   return {
     type: SET_FILTERED_PENDING,

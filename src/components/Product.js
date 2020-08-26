@@ -1,24 +1,21 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProduct } from "../reducers/product";
+import React from "react";
+import useFetch from "../hooks/useFetch";
+import { PRODUCT_BASE_URL } from "../config";
+import ProductDetails from "./ProductDetails";
+import Spinner from "./Spinner";
+import Alert from "./Alert";
 
-const Product = () => {
-  const { product, 
-          productRequestPending, 
-          productRequestError 
-        } = useSelector(state => state.productReducer);
-  const dispatch = useDispatch(); 
-
-  useEffect(() => {
-    if (!product?.name && !productRequestPending && !productRequestError)
-      setTimeout(() => dispatch(fetchProduct()), 0)
-  }, [dispatch, product, productRequestPending, productRequestError])
+const Product = ({ match }) => {
+  const url = PRODUCT_BASE_URL + match.params.id + ".json";
+  const { response, error, loading } = useFetch(url);
 
   return (
     <>
-      <div>{product?.name}</div>
+      {loading && <Spinner />}
+      {response && <ProductDetails {...response} />}
+      {error && <Alert>error?.toString()</Alert>}
     </>
   );
-}
+};
 
 export default Product;

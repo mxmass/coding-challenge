@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchList, fetchFiltered, applyTextFilter } from "../reducers/list";
+import {
+  fetchList,
+  fetchFiltered,
+  getFiltered,
+  applyTextFilter,
+  setFilteredPending,
+} from "../reducers/list";
 import { fetchBrands } from "../reducers/filters";
 import BrandsFilter from "./BrandsFilter";
 import NameFilter from "./NameFilter";
@@ -31,7 +37,6 @@ const List = () => {
     listRequestError,
     filtered,
     filteredRequestPending,
-    filteredRequestError,
   } = useSelector(state => state.listReducer);
   const {
     name,
@@ -43,14 +48,22 @@ const List = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!list?.length && !listRequestPending && !listRequestError) {
-      setTimeout(() => dispatch(fetchList()), 0);
-    }
-  }, []);
+    // if (!list?.length && !listRequestPending && !listRequestError) {
+    setTimeout(() => dispatch(fetchList()), 0);
+    // }
+  }, [dispatch]);
 
   useEffect(() => {
-    if (!filteredRequestPending && !filteredRequestError) {
-      setTimeout(() => dispatch(fetchFiltered(brand)), 0);
+    if (!filteredRequestPending) {
+      dispatch(setFilteredPending());
+      if (!list?.length || listRequestPending || listRequestError) {
+        setTimeout(() => dispatch(fetchFiltered(brand)), 0);
+      } else {
+        setTimeout(
+          () => dispatch(getFiltered(list, "brand", brand, dispatch)),
+          0
+        );
+      }
     }
   }, [dispatch, brand]);
 
@@ -76,6 +89,7 @@ const List = () => {
   ]);
 
   useEffect(() => {
+    // {!filteredRequestPending && dispatch(setFilteredPending())}
     setTimeout(() => dispatch(applyTextFilter(filtered, "name", name)), 0);
   }, [dispatch, filtered, name]);
 
