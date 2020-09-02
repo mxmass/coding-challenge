@@ -2,8 +2,8 @@
 
 ## yet TODO ;)
 
-- [ ] add styling to product page
-- [ ] make a full list a base for filtering instead of making API calls on every brand change
+- [x] add styling to product page
+- [x] make a full list a base for filtering instead of making API calls on every brand change
 - [ ] refactor actions, add more reducers for more filter options
 - [ ] add tests for redux
 - [ ] add unit and smoke tests

@@ -116,7 +116,6 @@ const fetchListSuccess = data => {
 
 export const fetchFiltered = brand => {
   const api = LIST_BASE_URL + brand;
-  console.log(api);
   return async dispatch => {
     try {
       dispatch(setFilteredPending());

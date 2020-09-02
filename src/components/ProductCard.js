@@ -47,10 +47,12 @@ const ProductCard = ({
       <Brand>{brand}</Brand>
       {image_link && <ProductImage src={image_link} name={name} />}
       {name && <Title>{name}</Title>}
-      <Price>
-        {price_sign || "$"}
-        {price} {currency || "USD"}
-      </Price>
+      {price && (
+        <Price>
+          {price_sign || "$"}
+          {price} {currency || "USD"}
+        </Price>
+      )}
     </Card>
   );
 };
