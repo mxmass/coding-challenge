@@ -8,8 +8,8 @@ import {
   setFilteredPending,
 } from "../reducers/list";
 import { fetchBrands } from "../reducers/filters";
-import BrandsFilter from "./BrandsFilter";
-import NameFilter from "./NameFilter";
+import BrandsFilter from "./filters/BrandsFilter";
+import NameFilter from "./filters/NameFilter";
 import ProductsList from "./ProductsList";
 import styled from "styled-components";
 
@@ -48,10 +48,8 @@ const List = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // if (!list?.length && !listRequestPending && !listRequestError) {
     setTimeout(() => dispatch(fetchList()), 0);
-    // }
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (!filteredRequestPending) {
@@ -59,13 +57,10 @@ const List = () => {
       if (!list?.length || listRequestPending || listRequestError) {
         setTimeout(() => dispatch(fetchFiltered(brand)), 0);
       } else {
-        setTimeout(
-          () => dispatch(getFiltered(list, "brand", brand, dispatch)),
-          0
-        );
+        setTimeout(() => dispatch(getFiltered(list, "brand", brand)), 0);
       }
     }
-  }, [dispatch, brand]);
+  }, [brand]);
 
   useEffect(() => {
     if (
@@ -89,7 +84,6 @@ const List = () => {
   ]);
 
   useEffect(() => {
-    // {!filteredRequestPending && dispatch(setFilteredPending())}
     setTimeout(() => dispatch(applyTextFilter(filtered, "name", name)), 0);
   }, [dispatch, filtered, name]);
 

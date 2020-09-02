@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import ProductCard from "./ProductCard";
-import Spinner from "./Spinner";
-import Alert from "./Alert";
+import Spinner from "./common/Spinner";
+import Alert from "./common/Alert";
 import styled from "styled-components";
 
 const ProductGrid = styled.div`

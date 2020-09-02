@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setBrand } from "../reducers/filters";
-import TinySpinner from "./TinySpinner";
+import { setBrand } from "../../reducers/filters";
+import TinySpinner from "../common/TinySpinner";
 import styled from "styled-components";
 
 const Wrapper = styled.div``;

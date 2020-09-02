@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useDebouncedEffect } from "../hooks/useDebouncedEffect";
-import { setName } from "../reducers/filters";
+import { useDebouncedEffect } from "../../hooks/useDebouncedEffect";
+import { setName } from "../../reducers/filters";
 
 const NameFilter = () => {
   const dispatch = useDispatch();
